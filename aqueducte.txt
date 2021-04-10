@@ -1,0 +1,15 @@
+--leer terreno
+
+calcular costes 
+    coste horizontal
+    coste vertical
+
+calcular si se solapa el terreno sobre el aqueducto
+
+# Para multiple Arcos
+for i ← 0 to length n    # si solo quieres un arco i=lenght-1 n=lenght 
+    x ← X[ i ] #posX del terreno
+    y ← Y[ i ] #poxY del terreno
+    if Y[ i ] > (h - max( X ))
+       
+# Para solo un Arco
