@@ -1,17 +1,94 @@
---leer terreno
+## Pseudocódigo ITERATIVO ##
 
-calcular costes 
-    coste horizontal
-    coste vertical
+Calcular si se solapa el terreno sobre el aqueducto
 
-calcular si se solapa el terreno sobre el aqueducto
+    # Para multiples Arcos
+    # leer la primera linea del documento 
+    
+    input:
+        linea ← string
+        n ← numPuntos
+        h ← Altura
+        alpha ← alpha
+        beta ← beta
+        posX ←
+        posY ←
+    output:
+        positive integrer
+    
+    
+## Para múltiples arcos ##
 
-# Para multiple Arcos
-for i ← 0 to length n    # si solo quieres un arco i=lenght-1 n=lenght 
-    x ← X[ i ] #posX del terreno
-    y ← Y[ i ] #poxY del terreno
-    if Y[ i ] > (h - max( X ))
-       
-# Para solo un Arco
- El coste
- Esto es test gitHub
+    for i ← 0 to length n
+        x ← X[ i ]                                                          # posX del terreno
+        y ← Y[ i ]                                                          # poxY del terreno
+        if Y[ i ] > (h - max( X ))                                          # Comprobación de que los puntos esten por debajo de los arcos
+            result ← result + h - Y [ i ]                                   # Cálculo de costes de alturas
+            if i != 0
+                result2 ← result2 +  (( X [ i ] - X [ i - 1 ] ) ** 2 )      # Cálculo de costes de distancias
+    result ← ( result * alpha ) + ( result2 * beta )                        # Cálculo de los costes totales
+    return result
+        
+
+## Para un solo Arco ##
+
+    x ← X[ i ]                                                              #posX del terreno
+    y ← Y[ i ]                                                              #poxY del terreno
+    si el punto esta por encima del centro del arco y por debjo de la h
+        calcular angulo que hace el punto del terreno con los dos puntos inferiores de la semicircunferencia
+        if angulo < 90
+            el terreno interfiere con el aqueducto
+        else
+            calculo de costes
+            result ← h - Y [ 0 ]
+            result ← result + h - Y [ n - 1 ]
+
+            result2 ← result2 +  (( X [ n - 1 ] - X [ 0 ] ) ** 2 )
+            
+            result ← ( result * alpha ) + ( result2 * beta ) 
+
+
+-----                    Calcular costes 
+                        #sumatorio coste vertical
+                            for i ← 0 to length n
+                                result ← result + h - Y [ i ]
+                            result ← result * alpha
+borrar
+                        #sumatorio coste horizontal
+                            for i ← 0 to length n - 1
+                                result2 ← result2 +  (( X [ i + 1 ] - X [ i ] ) ** 2 )
+                            result2 ← result2 * beta
+
+-----                          result ← result2 + result
+
+## Possible methodo principal ##
+    input:
+        linea ← string
+        n ← numPuntos
+        h ← Altura
+        alpha ← alpha
+        beta ← beta
+        posX ←
+        posY ←
+    output:
+        positive integrer / string
+
+    if IsValid                                                  coste O(1)
+        if readTerrain                                          coste O(n) 
+            if doesntOverlapMultipleArches                      coste O(n)
+                result[0] ← calculateCostMultipleArches         coste O(n)
+            else
+                result[0] ← "Impossible"                        coste O(1)
+            
+            if doesntOverlapOneArch                             coste O(n) = O(n) * O(1)
+                result[1] ← calculateCostOneArch                coste O(1)
+            else
+                result[1] ← "Impossible"                        coste O(1)
+        else
+            result ← "Impossible"                               coste O(1)
+    else
+        result ← "Impossible"                                   coste O(1)
+
+    return min(result)                                          coste O(1)
+.                                                         ________________
+.                                                         coste total O(n)

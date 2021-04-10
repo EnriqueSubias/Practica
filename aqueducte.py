@@ -86,7 +86,7 @@ def calculateAngle(point1, point2, terrainPoint, distanceHorizontal):
     return angle
 
 
-def isValid():
+def isValid(): # Comprobamos que los parametros de la primera linea son correctos segun el enunciado
     if n < 2 or n > 10000 or h < 1 or h > 100000 or alpha < 1 or alpha > 10000 or beta < 1 or beta > 10000:
         return False
     else:
@@ -95,7 +95,7 @@ def isValid():
 def readTerrain(posX, posY):
     for i in f:
         a = i.split(" ")
-        if float(a[1]) > h:
+        if float(a[1]) > h:    # Comprobamos que los puntos esten por debajo de la altura maxima
             return False
         posX.append(float(a[0]))
         posY.append(float(a[1]))
@@ -104,18 +104,18 @@ def readTerrain(posX, posY):
     return True
 
 if __name__ == "__main__":
-
-    f = open(sys.argv[1] , "r")
+    
+    f = open(sys.argv[1], "r")
     valores = f.readline().split(" ")
-
+    
     n = int(valores[0])
     h = int(valores[1])
     alpha = int(valores[2])
     beta = int(valores[3])
-
-    posX = [0] # x primera columna
-    posY = [0] # y segunda columna
+    
     if isValid():
+        posX = [0]            # X primera columna
+        posY = [0]              # Y segunda columna
         if readTerrain(posX, posY):
             result = [0,0]
             if doesntOverlapMultipleArches(posX, posY):
@@ -129,10 +129,12 @@ if __name__ == "__main__":
                 result[1]="impossible"
             
             result = int(min(result))
-            print(result) 
         else:
-           print("impossible")       
+           result = "impossible"       
     else:
-        print("impossible")
-
+        result = "impossible"
+    
     f.close
+    
+    print(result)
+    #return result
