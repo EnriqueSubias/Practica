@@ -13,3 +13,4 @@ for i ← 0 to length n    # si solo quieres un arco i=lenght-1 n=lenght
     if Y[ i ] > (h - max( X ))
        
 # Para solo un Arco
+ El coste
