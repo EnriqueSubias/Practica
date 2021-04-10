@@ -1,5 +1,5 @@
-
 #! /usr/bin/python
+# Prueba
 
 #import matplotlib.pyplot as plt
 import numpy as np
@@ -46,16 +46,16 @@ def calculateCostOneArch(n, h, alpha, beta, posX, posY):
 def doesntOverlapMultipleArches(posX, posY): ## Falta por hacer la comprobacion de que el terreno no se solapa con el aqueducto
 
     for i in range(0, n - 1, n):
-    
+
         radio = (float(posX[i + 1]) - float(posX[i])) / 2
         centerY = h - radio
 
         if centerY < int(posY[i]) or centerY < int(posY[i + 1]):
             return False
-            
+
     return True
 
-def doesntOverlapOneArch(posX, posY): 
+def doesntOverlapOneArch(posX, posY):
 
 
     terrainPoint = [0,0]
@@ -68,7 +68,7 @@ def doesntOverlapOneArch(posX, posY):
     point2 = [0,0]
     point2[0] = float(posX[n - 1])
     point2[1] = centerY
-        
+
 
     for i in range(0, n - 1):
         if centerY < int(posY[i]):# or centerY < int(posY[i + 1]):
@@ -84,7 +84,7 @@ def doesntOverlapOneArch(posX, posY):
 
 def calculateAngle(point1, point2, terrainPoint, distanceHorizontal):
     angle = 0
-    
+
     #point1 = [0,5]
     #point2 = [10,5]
     #terrainPoint = [1,9]
@@ -104,21 +104,21 @@ def calculateAngle(point1, point2, terrainPoint, distanceHorizontal):
     #-print("Distance2Vector [1]")
     #-print(distance2vector[1])
     #distance1vetor = [1,4]
-    distance1 = math.sqrt(distance1vector[0] * distance1vector[0] + distance1vector[1] * distance1vector[1]) 
-    distance2 = math.sqrt(distance2vector[0] * distance2vector[0] + distance2vector[1] * distance2vector[1]) 
+    distance1 = math.sqrt(distance1vector[0] * distance1vector[0] + distance1vector[1] * distance1vector[1])
+    distance2 = math.sqrt(distance2vector[0] * distance2vector[0] + distance2vector[1] * distance2vector[1])
     #-print(" - Distance1 ")
     #-print(distance1)
     #-print(" - Distance2 ")
     #-print(distance2)
     #-print(" - Distance Horizontal ")
     #-print(distanceHorizontal)
-    
+
     #distance1 = 4
     #distance2 = 6
     #distanceHorizontal = 10
 
     a = (((distance1 * distance1) + (distance2 * distance2) - (distanceHorizontal * distanceHorizontal)) / ( 2 * distance1 * distance2))
-    
+
     ## arc cos de a
     #-print("Resultadod de a",a)
     #-print("Arcos de A en rediantes ",math.acos(a))
@@ -190,7 +190,7 @@ if __name__ == "__main__":
                 ##sys.stdout.write(int(min(result)))
 
                 print(result)
-                
+
 
         else:
             print("impossible")
@@ -201,4 +201,3 @@ if __name__ == "__main__":
     #-print("")
 
     f.close
-
