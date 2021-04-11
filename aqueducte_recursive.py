@@ -4,25 +4,7 @@ import numpy as np
 import math
 import sys
 
-def calculateCostMultipleArches(n, h, alpha, beta, posX, posY):
-    
-    # Sumatorio de alturas de columnas
-    result = 0
-    for i in range(0, n):
-        result = float(result + (h - int(posY[i])))
-    result = float(alpha * result)
-    
-    # Sumatorio de distancias al cuadrado de puntes
-    result2 = 0
-    for i in range(0, n - 1):
-        dist = int(posX[i + 1]) - int(posX[i])
-        result2 = float(result2 + ( dist ** 2 ))
-
-    result2 = float(beta * result2)
-    result = float(result + result2)
-    return result
-
-def calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion):
+def calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, multiple):
     result = 0
     if doesntOverlapMultipleArchesRecursive(posX[posicion],posY[posicion]):
         if posicion < len(posX) - 1:
@@ -31,10 +13,16 @@ def calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion
 
             result2 = (posX[posicion + 1] - posX[posicion])
             result += float(beta * (result2 ** 2))
-            posicion = int(posicion + 1)
             
-            result =  result + calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion)
-            
+            if multiple:
+                posicion = int(posicion + 1)
+                result =  result + calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, True)
+            else:
+                posicion = int(len(posX)-1)
+                if doesntOverlapOneArch:
+                    result =  result + calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, False)
+                else:
+                    return "impossible"
         else:
             result = (h - int(posY[len(posY) - 1]))
             result = float(alpha * result)
@@ -60,16 +48,6 @@ def calculateCostOneArch(n, h, alpha, beta, posX, posY):
     result2 = float(beta * result2)
     result = float(result + result2)
     return result
-
-def doesntOverlapMultipleArches(posX, posY):
-
-    for i in range(0, n - 1, n):
-        radio = (float(posX[i + 1]) - float(posX[i])) / 2
-        centerY = h - radio
-
-        if centerY < int(posY[i]) or centerY < int(posY[i + 1]):
-            return False
-    return True
 
 def doesntOverlapOneArch(posX, posY):
 
@@ -153,18 +131,18 @@ if __name__ == "__main__":
             result = [0,0]
             #if doesntOverlapMultipleArchesRecursive(posX, posY):
             posicion = int(0)
-            result[0] = calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion)
+            result[0] = calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, True)
             #else:
             #    result[0]="impossible"
 
             if doesntOverlapOneArch(posX, posY):
-                result[1] = calculateCostOneArch(n, h, alpha, beta, posX, posY)
+                result[1] = calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, False)
             else:
                 result[1]="impossible"
             
             result = int(min(result))
         else:
-           result = "impossible"       
+           result = "impossible" 
     else:
         result = "impossible"
     f.close
