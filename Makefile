@@ -1,3 +1,3 @@
 
 test:
-	for t in *.in; do python aqueducte.py $$t > sortida; diff -q `basename $$t .in`.ans sortida; done
+	for t in *.in; do ./aqueducte $$t > sortida; diff -q `basename $$t .in`.ans sortida; done
