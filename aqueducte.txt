@@ -95,7 +95,7 @@ borrar
 
 
 
-Recursivo*
+## Pseudocódigo RECURSIVO ##
 
 for i ← 0 to length n
         x ← X[ i ]                                                          # posX del terreno

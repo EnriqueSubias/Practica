@@ -167,8 +167,7 @@ if __name__ == "__main__":
            result = "impossible"       
     else:
         result = "impossible"
-    
     f.close
-    
     print(result)
+    exit(result)
     #return result

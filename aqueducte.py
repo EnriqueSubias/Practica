@@ -114,7 +114,7 @@ if __name__ == "__main__":
     beta = int(valores[3])
     
     if isValid():
-        posX = [0]            # X primera columna
+        posX = [0]              # X primera columna
         posY = [0]              # Y segunda columna
         if readTerrain(posX, posY):
             result = [0,0]
@@ -135,6 +135,8 @@ if __name__ == "__main__":
         result = "impossible"
     
     f.close
-    
+    #sys.stdout.write(result)
+    sys.stdout = open('sortida', 'w')
     print(result)
-    #return result
+    sys.stdout.close()
+    #sys.exit(result)
