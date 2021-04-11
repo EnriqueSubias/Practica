@@ -13,8 +13,8 @@ def calculate_cost_recursive(posicion_arr, multiple):
             result_columns = (h_max - int(pos_y[posicion_arr]))
             result_total = float(alpha * result_columns)
 
-            result_pilars = (pos_x[posicion_arr + 1] - pos_x[posicion_arr])
-            result_total += float(beta * (result_pilars ** 2))
+            result_distances = (pos_x[posicion_arr + 1] - pos_x[posicion_arr])
+            result_total += float(beta * (result_distances ** 2))
 
             if multiple:
                 posicion_arr = int(posicion_arr + 1)
@@ -47,11 +47,11 @@ def calculate_cost_one_arch():
     result_columns = float(result_columns + (h_max - int(pos_y[n_points-1])))
     result_columns = alpha * result_columns
 
-    result_pilars = 0
-    result_pilars = result_pilars + \
+    result_distances = 0
+    result_distances = result_distances + \
         ((int(pos_x[n_points - 1]) - int(pos_x[0])) * (int(pos_x[n_points - 1]) - int(pos_x[0])))
-    result_pilars = float(beta * result_pilars)
-    result_total= float(result_columns + result_pilars)
+    result_distances = float(beta * result_distances)
+    result_total= float(result_columns + result_distances)
     return result_total
 
 

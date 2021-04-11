@@ -5,22 +5,35 @@
 import math
 import sys
 
-def calculate_cost_multiple_arches():
-    """Calcula el coste del aquaducto con todos los arcos posibles"""
-    # Sumatorio de alturas de columnas
+def check_overlap_and_calculate_cost_multiple_arches():
+    """Comprueba que todos los arcos posibles no interfieran con el terreno,
+    funciona comprobando que los puntos no esten por encima del inicio de los arcos,
+    ya que nunca habra puntos sin pilar, es suficiente con esta comprobacion.
+    Y si no se solapan los putnos con el aqueducto,
+    calcula el coste del aquaducto con todos los arcos posibles"""
+
     result_columns = 0
+    result_distances = 0
     for i in range(0, n_points):
+        if i < n_points - 1:
+            radio = (float(pos_x[i + 1]) - float(pos_x[i])) / 2
+            center_y = h_max - radio
+            if center_y < int(pos_y[i]) or center_y < int(pos_y[i + 1]):
+                return "impossible"
+            dist = int(pos_x[i + 1]) - int(pos_x[i])
+            result_distances = float(result_distances + (dist ** 2))
         result_columns = float(result_columns + (h_max - int(pos_y[i])))
     result_columns = float(alpha * result_columns)
-
-    # Sumatorio de distancias al cuadrado de puntes
-    result_pilars = 0
-    for i in range(0, n_points - 1):
-        dist = int(pos_x[i + 1]) - int(pos_x[i])
-        result_pilars = float(result_pilars + (dist ** 2))
-
-    result_pilars = float(beta * result_pilars)
-    result_total = float(result_columns + result_pilars)
+    result_distances = float(beta * result_distances)
+    result_total = float(result_columns + result_distances)
+    ## Sumatorio de alturas de columnas
+    ## Sumatorio de distancias al cuadrado de puntes
+    #result_distances = 0
+    #for i in range(0, n_points - 1):
+    #    dist = int(pos_x[i + 1]) - int(pos_x[i])
+    #    result_distances = float(result_distances + (dist ** 2))
+    #result_distances = float(beta * result_distances)
+    #result_total = float(result_columns + result_distances)
     return result_total
 
 
@@ -28,28 +41,25 @@ def calculate_cost_one_arch():
     """Calcularel coste del aqueducto con un solo arco"""
     result_columns = 0
     result_columns = float(result_columns + (h_max - int(pos_y[0])))
-    result_columns = float(result_columns + (h_max - int(pos_y[n_points-1])))
+    result_columns = float(result_columns + (h_max - int(pos_y[n_points - 1])))
     result_columns = alpha * result_columns
 
-    result_pilars = 0
-    result_pilars = result_pilars + \
+    result_distances = 0
+    result_distances = result_distances + \
         ((int(pos_x[n_points - 1]) - int(pos_x[0])) * (int(pos_x[n_points - 1]) - int(pos_x[0])))
-    result_pilars = float(beta * result_pilars)
-    result_total= float(result_columns + result_pilars)
+    result_distances = float(beta * result_distances)
+    result_total= float(result_columns + result_distances)
     return result_total
 
 
-def doesnt_overlap_multiple_arches():
-    """Comprueba que todos los arcos posibles no interfieran con el terreno,
-       funciona comprobando que los puntos no esten por encima del inicio de los arcos,
-       ya que nunca habra puntos sin pilar, es suficiente con esta comprobacion."""
-    for i in range(0, n_points - 1, n_points):
-        radio = (float(pos_x[i + 1]) - float(pos_x[i])) / 2
-        center_y = h_max - radio
+#def doesnt_overlap_multiple_arches():
+    #for i in range(0, n_points - 1):
+     #   radio = (float(pos_x[i + 1]) - float(pos_x[i])) / 2
+      #  center_y = h_max - radio
 
-        if center_y < int(pos_y[i]) or center_y < int(pos_y[i + 1]):
-            return False
-    return True
+       # if center_y < int(pos_y[i]) or center_y < int(pos_y[i + 1]):
+        #    return False
+    #return True
 
 
 def doesnt_overlap_one_arch():
@@ -68,7 +78,7 @@ def doesnt_overlap_one_arch():
     point2[1] = center_y
 
     for i in range(0, n_points - 1):
-        if center_y < int(pos_y[i]):  # or center_y < int(pos_y[i + 1]):
+        if center_y < int(pos_y[i]):
             terrain_point[0] = int(pos_x[i])
             terrain_point[1] = int(pos_y[i])
             angle = calculate_angle(point1, point2, terrain_point, max(pos_x))
@@ -111,6 +121,7 @@ def is_valid():
         return False
     return True
 
+
 def read_terrain():
     """Lee los puntos del terreno y comprueba que esten por debajo de la altura maxima"""
     for i in f:
@@ -140,27 +151,23 @@ if __name__ == "__main__":
         if read_terrain():
             #f.close # pylint dice que es innecesario ponerlo
             result = [0, 0]
-            if doesnt_overlap_multiple_arches():
-                result[0] = calculate_cost_multiple_arches()
-                
-            else:
-                result[0] = "impossible"
+            result[0] = check_overlap_and_calculate_cost_multiple_arches()
 
             if doesnt_overlap_one_arch():
                 result[1] = calculate_cost_one_arch()
             else:
                 result[1] = "impossible"
             result = int(min(result))
-            print(result, end='', file=sys.stdout)
+            print(result)
+            #, end='', file=sys.stdout)
             #sys.exit(0)
         else:
-            sys.exit("impossible")
+            print("impossible")
     else:
-        sys.exit("impossible")
+        print("impossible")
 
     # sys.stdout.write(result)
     # sys.stdout = open('sortida', 'w')
     # print(result)
     # sys.stdout.close()
-    
     # sys.exit(result)
