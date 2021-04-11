@@ -4,7 +4,7 @@ import numpy as np
 import math
 import sys
 
-def calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, multiple):
+def calculateCostRecursive(n, h, alpha, beta, posX, posY, posicion, multiple):
     result = 0
     if doesntOverlapMultipleArchesRecursive(posX[posicion],posY[posicion]):
         if posicion < len(posX) - 1:
@@ -13,14 +13,14 @@ def calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion
 
             result2 = (posX[posicion + 1] - posX[posicion])
             result += float(beta * (result2 ** 2))
-            
+
             if multiple:
                 posicion = int(posicion + 1)
-                result =  result + calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, True)
+                result =  result + calculateCostRecursive(n, h, alpha, beta, posX, posY, posicion, True)
             else:
-                posicion = int(len(posX)-1)
-                if doesntOverlapOneArch:
-                    result =  result + calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, False)
+                posicion = int(len(posX)- 1)
+                if doesntOverlapOneArch(posX, posY):
+                    return calculateCostOneArch(n, h, alpha, beta, posX, posY)
                 else:
                     return "impossible"
         else:
@@ -115,15 +115,15 @@ def recursiveFunction(n, h, alpha, beta, posX, posY, result):
         result[0]="impossible"
 
 if __name__ == "__main__":
-    
+
     f = open(sys.argv[1], "r")
     valores = f.readline().split(" ")
-    
+
     n = int(valores[0])
     h = int(valores[1])
     alpha = int(valores[2])
     beta = int(valores[3])
-    
+
     if isValid():
         posX = [0]              # X primera columna
         posY = [0]              # Y segunda columna
@@ -131,18 +131,14 @@ if __name__ == "__main__":
             result = [0,0]
             #if doesntOverlapMultipleArchesRecursive(posX, posY):
             posicion = int(0)
-            result[0] = calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, True)
+            result[0] = calculateCostRecursive(n, h, alpha, beta, posX, posY, posicion, True)
             #else:
             #    result[0]="impossible"
+            result[1] = calculateCostRecursive(n, h, alpha, beta, posX, posY, posicion, False)
 
-            if doesntOverlapOneArch(posX, posY):
-                result[1] = calculateCostMultipleArchesRecursive(n, h, alpha, beta, posX, posY, posicion, False)
-            else:
-                result[1]="impossible"
-            
             result = int(min(result))
         else:
-           result = "impossible" 
+           result = "impossible"
     else:
         result = "impossible"
     f.close

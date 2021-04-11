@@ -128,6 +128,7 @@ if __name__ == "__main__":
             else:
                 result[1]="impossible"
             
+            print(result[1])
             result = int(min(result))
         else:
            result = "impossible"       
@@ -136,7 +137,7 @@ if __name__ == "__main__":
     
     f.close
     #sys.stdout.write(result)
-    sys.stdout = open('sortida', 'w')
+    #sys.stdout = open('sortida', 'w')
     print(result)
-    sys.stdout.close()
+    #sys.stdout.close()
     #sys.exit(result)
