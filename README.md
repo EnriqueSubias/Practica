@@ -24,12 +24,11 @@ podemos usar un mismo bucle de coste O(n) para calcular 3 cosas:
 
 Ahora, tenemos que comprobar que todos los puntos del terreno no interfieran con el arco.
 Los puntos que estén por debajo del centro del arco, está claro que no interfieren, pero los puntos que hay por encima ya no es tan sencillo.
-Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo el [Teorama de Tales](https://en.wikipedia.org/wiki/Thales%27s_theorem)
-El ángulo que forma un triángulo inscrito en una circunferencia, con dos vértices alineados con el diámetro, con el tercer vértice en cualquier parte de la circunferencia, éste formará un ángulo rectángulo con los otros vértices, visto de otra manera,
+Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo el [Teorama de Tales](https://en.wikipedia.org/wiki/Thales%27s_theorem), el ángulo que forma un triángulo inscrito en una circunferencia, con dos vértices alineados con el diámetro, con el tercer vértice en cualquier parte de la circunferencia, éste formará un ángulo rectángulo con los otros vértices, visto de otra manera,
 cualquier triángulo rectángulo inscrito en una circunferencia tendrá un lado que pasará por el centro de la circunferencia.
 Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n).
 
-![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg)
+| ![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg) | ángulo < 90º = interfiere; ángulo = 90º = coincide con el arco; ángulo > 90º = está por debajo del arco, no interfiere |
 
 Al final hacemos return del valor mas bajo, ya sea el de múltiples arcos, o el de ún solo arco, en caso de que ambos sean imposibles hacemos return de "impossible"
 
