@@ -28,7 +28,10 @@ Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo el [Teorama
 cualquier triángulo rectángulo inscrito en una circunferencia tendrá un lado que pasará por el centro de la circunferencia.
 Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n).
 
-| ![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg) | ángulo < 90º = interfiere; ángulo = 90º = coincide con el arco; ángulo > 90º = está por debajo del arco, no interfiere |
+![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg)
+ - ángulo < 90º = interfiere, está por encima del arco
+ - ángulo = 90º = coincide con el arco
+ - ángulo > 90º = no interfiere, está por debajo del arco
 
 Al final hacemos return del valor mas bajo, ya sea el de múltiples arcos, o el de ún solo arco, en caso de que ambos sean imposibles hacemos return de "impossible"
 
@@ -63,7 +66,7 @@ Coste Teórico Iterativo: O(n)
     result ← (beta * distancia) + (alhpa * columnas)       # Cálculo de los costes totales
     return result
 
-###         Para un solo arco 
+###         Para un solo arco
 
     for i ← lenght(n_points - 1)                 coste O(n)
         if center < pos_y[ i ]                              # Si los puntos del terreno están por encima del centro del arco
