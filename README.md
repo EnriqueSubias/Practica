@@ -121,30 +121,30 @@ Coste Teórico Recursivo: O(n)
 
 ###         Para múltiples arcos
 
-    if doesnt_overlap_multiple(pos_x[poss_arr], pos_y[poss_arr] coste O(1)     # Si los puntos están por debajo de los arcos
+    if doesnt_overlap_multiple(pos_x[poss_arr], pos_y[poss_arr] coste O(1)  # Si los puntos están por debajo de los arcos
         if poss_arr < len( pos_x ) - 1
-            columnas ← (h_max - pos_y[ poss_arr ])                             # Cálculo de costes de alturas
+            columnas ← (h_max - pos_y[ poss_arr ])                          # Cálculo de costes de alturas
             total ← alpha * columnas
-            distancia ← pox_x [ poss_arr - 1] - pox_x[ poss_arr ]              # Cálculo de costes de distancias
+            distancia ← pox_x [ poss_arr - 1] - pox_x[ poss_arr ]           # Cálculo de costes de distancias
             total ← total + beta * distancia
-            total ← total + recursive(poss_arr +1 )             coste O(n)     # Cálculo de los costes totales recursivamente
+            total ← total + recursive(poss_arr +1 )             coste O(n)  # Cálculo de los costes totales recursivamente
         else:
-            columnas ← (h_max - pos_y[ len( pos_x ) - 1])       coste O(1)     # Caso simple, coste de la última altura, final
+            columnas ← (h_max - pos_y[ len( pos_x ) - 1])       coste O(1)  # Caso simple, coste de la última altura, final
             result ← alpha * columnas
         return result
     return Impossible
 
 ###         Para un solo arco
 
-    if doesnt_overlap_one_arch()                                coste O(n)     # Comprobación de que los puntos esten por debajo del arco
-        columnas ← (h_max - pos_y[ 0 ])                                        # Cálculo de costes de alturas
+    if doesnt_overlap_one_arch()                                coste O(n)  # Si los puntos están por debajo del arco
+        columnas ← (h_max - pos_y[ 0 ])                                     # Cálculo de costes de alturas
         columnas ← (h_max - pos_y[ n_points - 1])
         columnas ← alpha * columnas
 
-        distancias ← distancias + ((pos_x[n_points - 1] - pos_x[ 0 ]) ^ 2)     # Cálculo de costes de distancias
+        distancias ← distancias + ((pos_x[n_points - 1] - pos_x[ 0 ]) ^ 2)  # Cálculo de costes de distancias
         distancias ← beta * distancias
 
-        result ← columnas + distancias                                         # Cálculo de costes totales
+        result ← columnas + distancias                                      # Cálculo de costes totales
         return result
     return Imposible
 
@@ -154,4 +154,6 @@ Coste Práctico Recursivo: O(n)
 
 ____________________________________________________________
 
-| Robert Dragos Trif | Enrique Alejo Subías Melgar|
+Robert Dragos Trif
+
+Enrique Alejo Subías Melgar
