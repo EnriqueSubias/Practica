@@ -1,13 +1,8 @@
 # Practica
 
+#           Pseudocódigo ITERATIVO                    #
 
-#                  Pseudocódigo ITERATIVO                    #
-
-________________________________________________________________
-
-## Costes Teóricos Iterativo
-________________________________________________________________
-
+##          Costes Teóricos Iterativo                   ##
 
 Para calcular el menor coste del aqueducto, teniendo en cuenta 2 casos:
  - Todos los puntos tienen pilares.
@@ -33,24 +28,20 @@ Ya que como hay que calcular el angulo de cada punto del terreno, el coste será
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 Coste Teórico Iterativo: O(n)
 
+##          Pseudocódigo y Costes Prácticos Iterativo          ##
 
+    input:
+        linea ← string
+        n_points ← numPuntos
+        h_max ← Altura
+        alpha ← alpha
+        beta ← beta
+        pos_x ←
+        pos_y ←
+    output:
+        positive integrer / string
 
-##    Pseudocódigo y Costes Prácticos Iterativo    ##
-
-
-
-input:
-    linea ← string
-    n_points ← numPuntos
-    h_max ← Altura
-    alpha ← alpha
-    beta ← beta
-    pos_x ←
-    pos_y ←
-output:
-    positive integrer / string
-
-### Para múltiples arcos
+###         Para múltiples arcos
 
     for i ← lenght(n_points)                                    coste O(n)
         if i < n_points -1
@@ -64,7 +55,7 @@ output:
     result ← (beta * distancia) + (alhpa * columnas)                            # Cálculo de los costes totales
     return result
 
-### Para un solo arco 
+###         Para un solo arco 
 
     for i ← lenght(n_points - 1)                                coste O(n)
         if center < pos_y[ i ]                                                  # Si los puntos del terreno están por encima del centro del arco
@@ -81,16 +72,11 @@ output:
 Coste total sería de O(n) + (O(n) * O(1)) = O(n)
 Coste Práctico Iterativo: O(n)
 
+#           Pseudocódigo RECURSIVO                    #
 
-#                  Pseudocódigo RECURSIVO                    #
+##          Costes Teóricos Recursivo                    ##
 
-
-
-##        Costes Teóricos Recursivo          ##
-
-
-
-Para calcular el menor coste del aq‰ueducto, teniendo en cuenta 2 casos:
+Para calcular el menor coste del aqueducto, teniendo en cuenta 2 casos:
  - Todos los puntos tienen pilares.
  - Sólo los puntos de los extremos tienen pilares.
 
@@ -103,9 +89,7 @@ Posteriormente, comprobamos que
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 Coste Teórico Recursivo: O(n)
 
-
-
-##  Pseudocódigo y Costes Prácticos Recursivo ##
+##          Pseudocódigo y Costes Prácticos Recursivo        ##
 
     input:
         linea ← string
@@ -118,7 +102,7 @@ Coste Teórico Recursivo: O(n)
     output:
         positive integrer / string
 
-### Para múltiples arcos
+###         Para múltiples arcos
 
     if doesnt_overlap_multiple(pos_x [poss_arr], pos_y[poss_arr]    coste O(1)      # Comprobación de que los puntos esten por debajo de los arcos
         if poss_arr < len( pos_x ) - 1
@@ -133,7 +117,7 @@ Coste Teórico Recursivo: O(n)
         return result
     return Impossible
 
-### Para un solo arco
+###         Para un solo arco
 
     if doesnt_overlap_one_arch()                                    coste O(n)      # Comprobación de que los puntos esten por debajo del arco
         columnas ← (h_max - pos_y[ 0 ])                                             # Cálculo de costes de alturas
@@ -149,11 +133,3 @@ Coste Teórico Recursivo: O(n)
 
 Coste total sería de  (O(1) * O(n)) + (O(1) * O(1)) + O(n) = O(n)
 Coste Práctico Recursivo: O(n)
-
-# Test
-## Test
-### Test
-#### Test
-##### Test
-###### Test
-Test
