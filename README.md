@@ -23,11 +23,15 @@ podemos usar un mismo bucle de coste O(n) para calcular 3 cosas:
  - Sumatorio de distancias al cuadrado de puntes
 
 Ahora, tenemos que comprobar que todos los puntos del terreno no interfieran con el arco.
-| Los puntos que estén por debajo del centro del arco, está claro que no interfieren, pero los puntos que hay por encima ya no es tan sencillo.
+Los puntos que estén por debajo del centro del arco, está claro que no interfieren, pero los puntos que hay por encima ya no es tan sencillo.
 Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo el [Teorama de Tales](https://en.wikipedia.org/wiki/Thales%27s_theorem)
 El ángulo que forma un triángulo inscrito en una circunferencia, con dos vértices alineados con el diámetro, con el tercer vértice en cualquier parte de la circunferencia, éste formará un ángulo rectángulo con los otros vértices, visto de otra manera,
 cualquier triángulo rectángulo inscrito en una circunferencia tendrá un lado que pasará por el centro de la circunferencia.
-Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n). | ![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg) |
+Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n).
+
+![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg)
+
+Al final hacemos return del valor mas bajo, ya sea el de múltiples arcos, o el de ún solo arco, en caso de que ambos sean imposibles hacemos return de "impossible"
 
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 
@@ -90,13 +94,13 @@ Para calcular el menor coste del aqueducto, teniendo en cuenta 2 casos:
  - Todos los puntos tienen pilares.
  - Sólo los puntos de los extremos tienen pilares.
 
-Primero, tras obtener los primeros parámetros y las posiciones x e y de los puntos, comprobamos, de la misma manera que en el iterativo,
-que los puntos de los pilares de cada arco estén por debajo del centro del semcírculo que forma el arco (que tiene un coste O(n)),
-si no interfieren, entonces procedemos a calcular el coste usando una llamada recursiva de coste O(n).
+Primero, tras obtener los primeros parámetros y las posiciones x e y de los puntos, comprobamos, de la misma manera que en el iterativo, que los puntos de los pilares de cada arco estén por debajo del centro del semcírculo que forma el arco (que tiene un coste O(n)), si no interfieren, entonces procedemos a calcular el coste usando una llamada recursiva de coste O(n).
 
-Posteriormente, comprobamos que
+Posteriormente, comprobamos que todos los puntos del terreno estén por debajo de un único arco que va desde el primer punto hasta el último (al hacerlo mediante un bucle tiene un coste de O(n)), lo hacemos de la misma manera que en el algoritmo Iterativo, mediante el [Teorama de Tales](https://en.wikipedia.org/wiki/Thales%27s_theorem), si todos los puntos están por debajo, entonces procedemos a hacer el cálculo de los costes.
 
-Por lo que el coste total sería de O(n) + O(n) = O(n)
+Al final hacemos return del valor mas bajo, ya sea el de múltiples arcos, o el de ún solo arco, en caso de que ambos sean imposibles hacemos return de "impossible"
+
+Por lo que el coste total sería de O(n) + O(n) + O(n) = O(n)
 
 Coste Teórico Recursivo: O(n)
 
@@ -148,6 +152,4 @@ Coste Práctico Recursivo: O(n)
 
 ____________________________________________________________
 
-Robert Dragos Trif
-
-Enrique Alejo Subías Melgar
+| Robert Dragos Trif | Enrique Alejo Subías Melgar|
