@@ -1,7 +1,7 @@
 # Practica
 
 
-##                  Pseudocódigo ITERATIVO                    ##
+#                  Pseudocódigo ITERATIVO                    #
 
 ________________________________________________________________
 
@@ -33,10 +33,10 @@ Ya que como hay que calcular el angulo de cada punto del terreno, el coste será
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 Coste Teórico Iterativo: O(n)
 
-________________________________________________________________
 
-## Pseudocódigo y Costes Prácticos Iterativo
-________________________________________________________________
+
+##    Pseudocódigo y Costes Prácticos Iterativo    ##
+
 
 
 input:
@@ -50,7 +50,7 @@ input:
 output:
     positive integrer / string
 
-### Para múltiples arcos ###
+### Para múltiples arcos
 
     for i ← lenght(n_points)                                    coste O(n)
         if i < n_points -1
@@ -64,7 +64,7 @@ output:
     result ← (beta * distancia) + (alhpa * columnas)                            # Cálculo de los costes totales
     return result
 
-### Para un solo arco ###
+### Para un solo arco 
 
     for i ← lenght(n_points - 1)                                coste O(n)
         if center < pos_y[ i ]                                                  # Si los puntos del terreno están por encima del centro del arco
@@ -82,14 +82,12 @@ Coste total sería de O(n) + (O(n) * O(1)) = O(n)
 Coste Práctico Iterativo: O(n)
 
 
-################################################################
-##                  Pseudocódigo RECURSIVO                    ##
-################################################################
+#                  Pseudocódigo RECURSIVO                    #
 
-________________________________________________________________
 
-##   Costes Teóricos Recursivo
-________________________________________________________________
+
+##        Costes Teóricos Recursivo          ##
+
 
 
 Para calcular el menor coste del aq‰ueducto, teniendo en cuenta 2 casos:
@@ -101,56 +99,61 @@ que los puntos de los pilares de cada arco estén por debajo del centro del semc
 si no interfieren, entonces procedemos a calcular el coste usando una llamada recursiva de coste O(n).
 
 Posteriormente, comprobamos que
---------
 
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 Coste Teórico Recursivo: O(n)
 
-________________________________________________________________
-
-##  Pseudocódigo y Costes Prácticos Recursivo
-________________________________________________________________
 
 
-input:
-    linea ← string
-    n_points ← numPuntos
-    h_max ← Altura
-    alpha ← alpha
-    beta ← beta
-    pos_x ← array_X
-    pos_y ← array_Y
-output:
-    positive integrer / string
+##  Pseudocódigo y Costes Prácticos Recursivo ##
 
-### Para múltiples arcos ###
+    input:
+        linea ← string
+        n_points ← numPuntos
+        h_max ← Altura
+        alpha ← alpha
+        beta ← beta
+        pos_x ← array_X
+        pos_y ← array_Y
+    output:
+        positive integrer / string
 
-if doesnt_overlap_multiple(pos_x [poss_arr], pos_y[poss_arr]    coste O(1)      # Comprobación de que los puntos esten por debajo de los arcos
-    if poss_arr < len( pos_x ) - 1
-        columnas ← (h_max - pos_y[ poss_arr ])                                  # Cálculo de costes de alturas
-        total ← alpha * columnas
-        distancia ← pox_x [ poss_arr - 1] - pox_x[ poss_arr ]                   # Cálculo de costes de distancias
-        total ← total + beta * distancia
-        total ← total + recursive(poss_arr +1 )                 coste O(n)      # Cálculo de los costes totales con llamada recursiva
-    else:
-        columnas ← (h_max - pos_y[ len( pos_x ) - 1])           coste O(1)      # Caso simple, coste de la última altura cuanfo ha llegao al final
-        result ← alpha * columnas
-    return result
-return Impossible
+### Para múltiples arcos
 
-## Para un solo arco ##
+    if doesnt_overlap_multiple(pos_x [poss_arr], pos_y[poss_arr]    coste O(1)      # Comprobación de que los puntos esten por debajo de los arcos
+        if poss_arr < len( pos_x ) - 1
+            columnas ← (h_max - pos_y[ poss_arr ])                                  # Cálculo de costes de alturas
+            total ← alpha * columnas
+            distancia ← pox_x [ poss_arr - 1] - pox_x[ poss_arr ]                   # Cálculo de costes de distancias
+            total ← total + beta * distancia
+            total ← total + recursive(poss_arr +1 )                 coste O(n)      # Cálculo de los costes totales con llamada recursiva
+        else:
+            columnas ← (h_max - pos_y[ len( pos_x ) - 1])           coste O(1)      # Caso simple, coste de la última altura cuanfo ha llegao al final
+            result ← alpha * columnas
+        return result
+    return Impossible
 
-if doesnt_overlap_one_arch()                                    coste O(n)      # Comprobación de que los puntos esten por debajo del arco
-    columnas ← (h_max - pos_y[ 0 ])                                             # Cálculo de costes de alturas
-    columnas ← (h_max - pos_y[ n_points - 1])
-    columnas ← alpha * columnas
+### Para un solo arco
 
-    distancias ← distancias + ((pos_x[n_points - 1] - pos_x[ 0 ]) ^ 2)          # Cálculo de costes de distancias
-    distancias ← beta * distancias
+    if doesnt_overlap_one_arch()                                    coste O(n)      # Comprobación de que los puntos esten por debajo del arco
+        columnas ← (h_max - pos_y[ 0 ])                                             # Cálculo de costes de alturas
+        columnas ← (h_max - pos_y[ n_points - 1])
+        columnas ← alpha * columnas
 
-    result ← columnas + distancias                                              # Cálculo de costes totales
-    return result
-return Imposible
+        distancias ← distancias + ((pos_x[n_points - 1] - pos_x[ 0 ]) ^ 2)          # Cálculo de costes de distancias
+        distancias ← beta * distancias
+
+        result ← columnas + distancias                                              # Cálculo de costes totales
+        return result
+    return Imposible
 
 Coste total sería de  (O(1) * O(n)) + (O(1) * O(1)) + O(n) = O(n)
 Coste Práctico Recursivo: O(n)
+
+# Test
+## Test
+### Test
+#### Test
+##### Test
+###### Test
+Test
