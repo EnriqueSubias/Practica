@@ -1,12 +1,12 @@
 # Informe Práctica
 
-Algoritmo que calcula el coste mínimo de un aqueducto en base a los parámetros de entrada
+Algoritmo que calcula el coste mínimo de un aqueducto en base a los parámetros del archivo de entrada.
 
 #           Algoritmo Iterativo                       #
 
 Uso:
 
-    $ ./aqueducte.py filename.in
+    $ ./aqueducte.py <fitxer entrada>
 
 ##          Costes Teóricos Iterativo                   ##
 
@@ -24,12 +24,12 @@ podemos usar un mismo bucle de coste O(n) para calcular 3 cosas:
 
 Ahora, tenemos que comprobar que todos los puntos del terreno no interfieran con el arco.
 Los puntos que estén por debajo del centro del arco, está claro que no interfieren, pero los puntos que hay por encima ya no es tan sencillo.
-Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo la teoria de que
-El ángulo que forma un triángulo inscrito en una circunferencia,
-con dos vértices alineados con el diámetro, con el tercer vértice en cualquier parte de la circunferencia,
-éste formará un ángulo rectángulo con los otros vértices, visto de otra manera,
+Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo el [Teorama de Tales](https://en.wikipedia.org/wiki/Thales%27s_theorem)
+El ángulo que forma un triángulo inscrito en una circunferencia, con dos vértices alineados con el diámetro, con el tercer vértice en cualquier parte de la circunferencia, éste formará un ángulo rectángulo con los otros vértices, visto de otra manera,
 cualquier triángulo rectángulo inscrito en una circunferencia tendrá un lado que pasará por el centro de la circunferencia.
 Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n).
+
+![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg)
 
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 
@@ -39,8 +39,8 @@ Coste Teórico Iterativo: O(n)
 
     input:
         linea ← string
-        n_points ← numPuntos
-        h_max ← Altura
+        n_points ← Número de puntos de terreno
+        h_max ← Altura máxima del aqueducto (A la que los semiírculos son tangentes)
         alpha ← alpha
         beta ← beta
         pos_x ←
@@ -80,9 +80,11 @@ Coste total sería de O(n) + (O(n) * O(1)) = O(n)
 
 Coste Práctico Iterativo: O(n)
 
-#           Algoritmo Recursivo                        #
+#           Algoritmo Recursivo                           #
 
-    $ ./aqueducte_recursive.py filename.in
+Uso:
+
+    $ ./aqueducte_recursive.py <fitxer entrada>
 
 ##          Costes Teóricos Recursivo                    ##
 
@@ -100,7 +102,7 @@ Por lo que el coste total sería de O(n) + O(n) = O(n)
 
 Coste Teórico Recursivo: O(n)
 
-##          Pseudocódigo y Costes Prácticos Recursivo        ##
+##          Pseudocódigo y Costes Prácticos Recursivo      ##
 
     input:
         linea ← string
@@ -115,30 +117,30 @@ Coste Teórico Recursivo: O(n)
 
 ###         Para múltiples arcos
 
-    if doesnt_overlap_multiple(pos_x[poss_arr], pos_y[poss_arr] coste O(1)      # Comprobación de que los puntos esten por debajo de los arcos
+    if doesnt_overlap_multiple(pos_x[poss_arr], pos_y[poss_arr] coste O(1)     # Si los puntos están por debajo de los arcos
         if poss_arr < len( pos_x ) - 1
-            columnas ← (h_max - pos_y[ poss_arr ])                                  # Cálculo de costes de alturas
+            columnas ← (h_max - pos_y[ poss_arr ])                             # Cálculo de costes de alturas
             total ← alpha * columnas
-            distancia ← pox_x [ poss_arr - 1] - pox_x[ poss_arr ]                   # Cálculo de costes de distancias
+            distancia ← pox_x [ poss_arr - 1] - pox_x[ poss_arr ]              # Cálculo de costes de distancias
             total ← total + beta * distancia
-            total ← total + recursive(poss_arr +1 )             coste O(n)      # Cálculo de los costes totales con llamada recursiva
+            total ← total + recursive(poss_arr +1 )             coste O(n)     # Cálculo de los costes totales recursivamente
         else:
-            columnas ← (h_max - pos_y[ len( pos_x ) - 1])       coste O(1)      # Caso simple, coste de la última altura cuanfo ha llegao al final
+            columnas ← (h_max - pos_y[ len( pos_x ) - 1])       coste O(1)     # Caso simple, coste de la última altura, final
             result ← alpha * columnas
         return result
     return Impossible
 
 ###         Para un solo arco
 
-    if doesnt_overlap_one_arch()                                    coste O(n)      # Comprobación de que los puntos esten por debajo del arco
-        columnas ← (h_max - pos_y[ 0 ])                                             # Cálculo de costes de alturas
+    if doesnt_overlap_one_arch()                                coste O(n)     # Comprobación de que los puntos esten por debajo del arco
+        columnas ← (h_max - pos_y[ 0 ])                                        # Cálculo de costes de alturas
         columnas ← (h_max - pos_y[ n_points - 1])
         columnas ← alpha * columnas
 
-        distancias ← distancias + ((pos_x[n_points - 1] - pos_x[ 0 ]) ^ 2)          # Cálculo de costes de distancias
+        distancias ← distancias + ((pos_x[n_points - 1] - pos_x[ 0 ]) ^ 2)     # Cálculo de costes de distancias
         distancias ← beta * distancias
 
-        result ← columnas + distancias                                              # Cálculo de costes totales
+        result ← columnas + distancias                                         # Cálculo de costes totales
         return result
     return Imposible
 
