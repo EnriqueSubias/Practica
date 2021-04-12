@@ -1,6 +1,6 @@
 #! /usr/bin/python
 
-"""Progamra para calcular el coste de un aqueducto en modo Iterativo."""
+"""Programa para calcular el coste de un aqueducto en modo Iterativo."""
 
 import math
 import sys
@@ -38,19 +38,21 @@ def check_overlap_and_calculate_cost_multiple_arches():
 
 
 def calculate_cost_one_arch():
-    """Calcularel coste del aqueducto con un solo arco"""
-    result_columns = 0
-    result_columns = float(result_columns + (h_max - int(pos_y[0])))
-    result_columns = float(result_columns + (h_max - int(pos_y[n_points - 1])))
-    result_columns = alpha * result_columns
+    """Calcularel coste del aqueducto con un solo arco,
+       sabiendo si no se solapa el terreno con el aqueducto"""
+    if doesnt_overlap_one_arch():
+        result_columns = 0
+        result_columns = float(result_columns + (h_max - int(pos_y[0])))
+        result_columns = float(result_columns + (h_max - int(pos_y[n_points - 1])))
+        result_columns = alpha * result_columns
 
-    result_distances = 0
-    result_distances = result_distances + \
-        ((int(pos_x[n_points - 1]) - int(pos_x[0])) * (int(pos_x[n_points - 1]) - int(pos_x[0])))
-    result_distances = float(beta * result_distances)
-    result_total= float(result_columns + result_distances)
-    return result_total
-
+        result_distances = 0
+        result_distances = result_distances + \
+            ((int(pos_x[n_points-1]) - int(pos_x[0])) * (int(pos_x[n_points-1]) - int(pos_x[0])))
+        result_distances = float(beta * result_distances)
+        result_total= float(result_columns + result_distances)
+        return result_total
+    return "impossible"
 
 #def doesnt_overlap_multiple_arches():
     #for i in range(0, n_points - 1):
@@ -152,11 +154,7 @@ if __name__ == "__main__":
             #f.close # pylint dice que es innecesario ponerlo
             result = [0, 0]
             result[0] = check_overlap_and_calculate_cost_multiple_arches()
-
-            if doesnt_overlap_one_arch():
-                result[1] = calculate_cost_one_arch()
-            else:
-                result[1] = "impossible"
+            result[1] = calculate_cost_one_arch()
             result = int(min(result))
             print(result)
             #, end='', file=sys.stdout)

@@ -1,12 +1,12 @@
 #! /usr/bin/python
 
-"""Progamra para calcular el coste de un aqueducto en modo Recursivo."""
+"""Programa para calcular el coste de un aqueducto en modo Recursivo."""
 
 import math
 import sys
 
-def calculate_cost_recursive(posicion_arr, multiple):
-    """Calcula el coste del aquaducto con todos los arcos posibles"""
+def calculate_cost_recursive(posicion_arr):
+    """Calcula el coste del aquaducto con todos los arcos posibles."""
     result_total = 0
     if doesnt_overlap_multiple_arches_recursive(pos_x[posicion_arr], pos_y[posicion_arr]):
         if posicion_arr < len(pos_x) - 1:
@@ -16,23 +16,18 @@ def calculate_cost_recursive(posicion_arr, multiple):
             result_distances = (pos_x[posicion_arr + 1] - pos_x[posicion_arr])
             result_total += float(beta * (result_distances ** 2))
 
-            if multiple:
-                posicion_arr = int(posicion_arr + 1)
-                result_total = result_total + \
-                    calculate_cost_recursive(posicion_arr, True)
-            else:
-                posicion_arr = int(len(pos_x) - 1)
-                if doesnt_overlap_one_arch():
-                    return calculate_cost_one_arch()
-                return "impossible"
+            result_total = result_total + \
+                calculate_cost_recursive(posicion_arr + 1)
+
         else:
             result_columns = (h_max - int(pos_y[len(pos_y) - 1]))
             result_total = float(alpha * result_columns)
         return result_total
-    return "Impossible"
+    return "impossible"
+
 
 def doesnt_overlap_multiple_arches_recursive(pos_x_num, pos_y_num):
-    """Calcularel coste del aqueducto con un solo arco"""
+    """Calcularel coste del aqueducto con un solo arco."""
     radio = (float(pos_x_num) - float(pos_x_num / 2))
     center_y = h_max - radio
 
@@ -41,19 +36,18 @@ def doesnt_overlap_multiple_arches_recursive(pos_x_num, pos_y_num):
     return True
 
 def calculate_cost_one_arch():
-    """Calcularel coste del aqueducto con un solo arco"""
-    result_columns = 0
-    result_columns = float(result_columns + (h_max - int(pos_y[0])))
-    result_columns = float(result_columns + (h_max - int(pos_y[n_points-1])))
-    result_columns = alpha * result_columns
-
-    result_distances = 0
-    result_distances = result_distances + \
-        ((int(pos_x[n_points - 1]) - int(pos_x[0])) * (int(pos_x[n_points - 1]) - int(pos_x[0])))
-    result_distances = float(beta * result_distances)
-    result_total= float(result_columns + result_distances)
-    return result_total
-
+    """Calcularel coste del aqueducto con un solo arco."""
+    if doesnt_overlap_one_arch():
+        result_columns = 0
+        result_columns = float(result_columns + (h_max - int(pos_y[0])))
+        result_columns = float(result_columns + (h_max - int(pos_y[n_points - 1])))
+        result_columns = alpha * result_columns
+        result_distances = 0
+        result_distances = result_distances + ((int(pos_x[n_points-1]) - int(pos_x[0])) ** 2)
+        result_distances = float(beta * result_distances)
+        result_total = float(result_columns + result_distances)
+        return result_total
+    return "impossible"
 
 def doesnt_overlap_one_arch():
     """Comprueba que ningun punto del terreno interfiera con la semicircunferencia de cada arco,
@@ -143,14 +137,9 @@ if __name__ == "__main__":
         if read_terrain():
             result = [0, 0]
             #f.close
-            # if doesnt_overlap_multiple_arches_recursive(pos_x, pos_y):
             POSITION = 0
-            result[0] = calculate_cost_recursive(POSITION, True)
-            # else:
-            #    result[0]="impossible"
-            result[1] = calculate_cost_recursive(POSITION, False)
-            #print(result[0])
-            #print(result[1])
+            result[0] = calculate_cost_recursive(POSITION)
+            result[1] = calculate_cost_one_arch()
             result = int(min(result))
             print(result)
             sys.exit(result)
