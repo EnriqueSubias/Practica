@@ -23,13 +23,11 @@ podemos usar un mismo bucle de coste O(n) para calcular 3 cosas:
  - Sumatorio de distancias al cuadrado de puntes
 
 Ahora, tenemos que comprobar que todos los puntos del terreno no interfieran con el arco.
-Los puntos que estén por debajo del centro del arco, está claro que no interfieren, pero los puntos que hay por encima ya no es tan sencillo.
+| Los puntos que estén por debajo del centro del arco, está claro que no interfieren, pero los puntos que hay por encima ya no es tan sencillo.
 Para ésto, hemos pensado hacerlo mediante trigonometría, siguiendo el [Teorama de Tales](https://en.wikipedia.org/wiki/Thales%27s_theorem)
 El ángulo que forma un triángulo inscrito en una circunferencia, con dos vértices alineados con el diámetro, con el tercer vértice en cualquier parte de la circunferencia, éste formará un ángulo rectángulo con los otros vértices, visto de otra manera,
 cualquier triángulo rectángulo inscrito en una circunferencia tendrá un lado que pasará por el centro de la circunferencia.
-Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n).
-
-![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg)
+Ya que como hay que calcular el angulo de cada punto del terreno, el coste será de O(n). | ![Teorema de Tales](https://upload.wikimedia.org/wikipedia/commons/4/44/Thales%27_Theorem_Simple.svg) |
 
 Por lo que el coste total sería de O(n) + O(n) = O(n)
 
