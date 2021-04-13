@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/env python3
 
 """Programa para calcular el coste de un aqueducto en modo Iterativo."""
 
@@ -155,17 +155,9 @@ if __name__ == "__main__":
             result = [0, 0]
             result[0] = check_overlap_and_calculate_cost_multiple_arches()
             result[1] = calculate_cost_one_arch()
-            result = int(min(result))
+            result = min(result)
             print(result)
-            #, end='', file=sys.stdout)
-            #sys.exit(0)
         else:
             print("impossible")
     else:
         print("impossible")
-
-    # sys.stdout.write(result)
-    # sys.stdout = open('sortida', 'w')
-    # print(result)
-    # sys.stdout.close()
-    # sys.exit(result)
