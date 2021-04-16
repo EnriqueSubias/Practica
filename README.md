@@ -152,6 +152,8 @@ Coste total sería de  (O(1) * O(n)) + (O(1) * O(1)) + O(n) = O(n)
 
 Coste Práctico Recursivo: O(n)
 
+![Grafico de Costes Practicos](Grafico.JPG)
+
 ____________________________________________________________
 
 Robert Dragos Trif
