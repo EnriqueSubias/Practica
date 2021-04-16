@@ -8,7 +8,7 @@ Uso:
 
     $ ./aqueducte.py <fitxer entrada>
 
-##          Costes Teóricos Iterativo                   ##
+##          Costes Teóricos Iterativo                  ##
 
 Para calcular el menor coste del aqueducto, teniendo en cuenta 2 casos:
  - Todos los puntos tienen pilares.

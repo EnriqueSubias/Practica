@@ -145,7 +145,7 @@ if __name__ == "__main__":
     #print(ficheros)
 
     for x in ficheros:
-        print(x)
+        #print(x)
         puntoans = x.replace(".in",".pa.ans")
         g = open(puntoans, "r")
         resultans = int(g.readline())
@@ -167,12 +167,15 @@ if __name__ == "__main__":
                 result[0] = check_overlap_and_calculate_cost_multiple_arches()
                 result[1] = calculate_cost_one_arch()
                 result = min(result)
-                if result == resultans:
-                    print("OK")
-                else:
+                
+                if result != resultans:
+                    #print("OK")
                     print("Error")
-                #print(result)
-                #print(resultans)
+                    #print(result)
+                    #print(resultans)
+                    print(int(result), "is different to", resultans)
+                #else:
+                #    print(int(result), "is equal to", resultans)
             else:
                 print("impossible")
         else:

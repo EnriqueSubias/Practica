@@ -156,7 +156,7 @@ if __name__ == "__main__":
             result[0] = check_overlap_and_calculate_cost_multiple_arches()
             result[1] = calculate_cost_one_arch()
             result = min(result)
-            print(result)
+            print(int(result))
         else:
             print("impossible")
     else:
