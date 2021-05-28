@@ -1,6 +1,6 @@
 
-test:
-	for t in t*.in; do ./aqueducte.py $$t > sortida; diff -q `basename $$t .in`.pa.ans sortida; done
+test_iterative:
+	for t in *.in; do ./aqueducte.py $$t > sortida; diff -q `basename $$t .in`.ap.ans sortida; done
 
 test_recursive:
-	for t in t*.in; do ./aqueducte_recursive.py $$t > sortida; diff -q `basename $$t .in`.pa.ans sortida; done
+	for t in *.in; do ./aqueducte_recursive.py $$t > sortida; diff -q `basename $$t .in`.ap.ans sortida; done

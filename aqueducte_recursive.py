@@ -5,33 +5,52 @@
 import math
 import sys
 
+sys.setrecursionlimit(20000)
+
 def calculate_cost_recursive(posicion_arr):
     """Calcula el coste del aquaducto con todos los arcos posibles."""
     result_total = 0
-    if doesnt_overlap_multiple_arches_recursive(pos_x[posicion_arr], pos_y[posicion_arr]):
-        if posicion_arr < len(pos_x) - 1:
-            result_columns = (h_max - int(pos_y[posicion_arr]))
-            result_total = float(alpha * result_columns)
+    if posicion_arr < n_points - 1:
+        if posicion_arr >= 0:
+            #result_total = 0
+            if doesnt_overlap_multiple_arches_recursive \
+                (pos_x[posicion_arr], pos_x[posicion_arr + 1], \
+                    pos_y[posicion_arr], pos_y[posicion_arr + 1]):
 
-            result_distances = (pos_x[posicion_arr + 1] - pos_x[posicion_arr])
-            result_total += float(beta * (result_distances ** 2))
+                if posicion_arr < len(pos_x) - 1:
+                    result_columns = (h_max - int(pos_y[posicion_arr]))
+                    result_total = float(alpha * result_columns)
 
-            result_total = result_total + \
-                calculate_cost_recursive(posicion_arr + 1)
+                    result_distances = (pos_x[posicion_arr + 1] - pos_x[posicion_arr])
+                    result_total += float(beta * (result_distances ** 2))
+                    calcul = calculate_cost_recursive(posicion_arr + 1)
+                    if calcul == "impossible":
+                        return "impossible"
+                    result_total = result_total + calcul
+                else:
+                    result_columns = (h_max - int(pos_y[len(pos_y) - 1]))
+                    result_total = float(alpha * result_columns)
+                return result_total
+            return "impossible"
+        return "impossible"
+    result_columns = 0
+    result_distances = 0
+    result_columns = float(result_columns + (h_max - int(pos_y[posicion_arr])))
+    result_columns = float(alpha * result_columns)
+    result_distances = float(beta * result_distances)
+    result_total = float(result_columns + result_distances)
+    return result_total
 
-        else:
-            result_columns = (h_max - int(pos_y[len(pos_y) - 1]))
-            result_total = float(alpha * result_columns)
-        return result_total
-    return "impossible"
 
-
-def doesnt_overlap_multiple_arches_recursive(pos_x_num, pos_y_num):
+def doesnt_overlap_multiple_arches_recursive(pos_x_num, pos_x_num_2, pos_y_num, pos_y_num_2):
     """Calcularel coste del aqueducto con un solo arco."""
-    radio = (float(pos_x_num) - float(pos_x_num / 2))
+    radio = ((float(pos_x_num_2) - float(pos_x_num))) / 2
     center_y = h_max - radio
 
-    if center_y < int(pos_y_num) or center_y < int(pos_y_num):
+    if center_y < 0:
+        return False
+
+    if center_y < int(pos_y_num) or center_y < int(pos_y_num_2):
         return False
     return True
 
@@ -56,6 +75,11 @@ def doesnt_overlap_one_arch():
     terrain_point = [0, 0]
     center_y = h_max - float(max(pos_x)) / 2
 
+    if center_y < 0:
+        return False
+
+    d_horizontal = pos_x[n_points - 1] - pos_x[0]
+
     point1 = [0, 0]
     point1[0] = float(pos_x[0])
     point1[1] = center_y
@@ -68,8 +92,8 @@ def doesnt_overlap_one_arch():
         if center_y < int(pos_y[i]):  # or center_y < int(pos_y[i + 1]):
             terrain_point[0] = int(pos_x[i])
             terrain_point[1] = int(pos_y[i])
-            angle = calculate_angle(point1, point2, terrain_point, max(pos_x))
-            if angle < 90:
+            angle = calculate_angle(point1, point2, terrain_point, d_horizontal)
+            if angle <= 90:
                 return False
     return True
 
@@ -123,6 +147,7 @@ def read_terrain():
 
 
 if __name__ == "__main__":
+
     f = open(sys.argv[1], "r")
     valores = f.readline().split(" ")
 
@@ -137,12 +162,16 @@ if __name__ == "__main__":
         if read_terrain():
             result = [0, 0]
             #f.close
-            POSITION = 0
-            result[0] = calculate_cost_recursive(POSITION)
+            result[0] = calculate_cost_recursive(0)
             result[1] = calculate_cost_one_arch()
-            result = int(min(result))
-            print(result)
-            sys.exit(result)
+            if result[0] == "impossible" and result[1] == "impossible":
+                print("impossible")
+            elif result[0] == "impossible":
+                print(int(result[1]))
+            elif result[1] == "impossible":
+                print(int(result[0]))
+            else:
+                print(int(min(result)))
         else:
             sys.exit("impossible")
     else:

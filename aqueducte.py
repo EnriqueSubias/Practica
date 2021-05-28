@@ -18,7 +18,7 @@ def check_overlap_and_calculate_cost_multiple_arches():
         if i < n_points - 1:
             radio = (float(pos_x[i + 1]) - float(pos_x[i])) / 2
             center_y = h_max - radio
-            if center_y < int(pos_y[i]) or center_y < int(pos_y[i + 1]):
+            if center_y < int(pos_y[i]) or center_y < int(pos_y[i + 1]) or center_y < 0:
                 return "impossible"
             dist = int(pos_x[i + 1]) - int(pos_x[i])
             result_distances = float(result_distances + (dist ** 2))
@@ -35,7 +35,6 @@ def check_overlap_and_calculate_cost_multiple_arches():
     #result_distances = float(beta * result_distances)
     #result_total = float(result_columns + result_distances)
     return result_total
-
 
 def calculate_cost_one_arch():
     """Calcularel coste del aqueducto con un solo arco,
@@ -71,6 +70,11 @@ def doesnt_overlap_one_arch():
     terrain_point = [0, 0]
     center_y = h_max - float(max(pos_x)) / 2
 
+    if center_y < 0:
+        return False
+
+    d_horizontal = pos_x[n_points - 1] - pos_x[0]  # Fallo 1 #
+
     point1 = [0, 0]
     point1[0] = float(pos_x[0])
     point1[1] = center_y
@@ -83,8 +87,10 @@ def doesnt_overlap_one_arch():
         if center_y < int(pos_y[i]):
             terrain_point[0] = int(pos_x[i])
             terrain_point[1] = int(pos_y[i])
-            angle = calculate_angle(point1, point2, terrain_point, max(pos_x))
-            if angle < 90:
+            # Fallo 1 # Estabamos dando por hecho que el primer punto salia de [0,0]
+            angle = calculate_angle(point1, point2, terrain_point, d_horizontal) # max(pos_x)
+            # Fallo 2 # Hemos cambiado la condicion para que si esta tocando, no sea valido el arco
+            if angle <= 90:
                 return False
     return True
 
@@ -155,8 +161,15 @@ if __name__ == "__main__":
             result = [0, 0]
             result[0] = check_overlap_and_calculate_cost_multiple_arches()
             result[1] = calculate_cost_one_arch()
-            result = int(min(result))
-            print(result)
+            # Fallo 2 # Hemos añadido este for para hacer el minimo correctamente
+            if result[0] == "impossible" and result[1] == "impossible":
+                print("impossible")
+            elif result[0] == "impossible":
+                print(int(result[1]))
+            elif result[1] == "impossible":
+                print(int(result[0]))
+            else:
+                print(int(min(result)))
         else:
             print("impossible")
     else:
